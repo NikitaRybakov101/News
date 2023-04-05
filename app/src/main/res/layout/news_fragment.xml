@@ -5,56 +5,80 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <View
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerNews"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:alpha="0.5"
-        android:text="News Galaxy"
+        android:layout_marginStart="@dimen/margin_default"
+        android:layout_marginTop="@dimen/margin_very_small"
+        android:alpha="0.6"
+        android:text="@string/news_galaxy"
         android:textSize="37sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.chip.Chip
-        android:id="@+id/chipSelectTeslaNews"
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tesla  news"
-        android:layout_marginStart="8dp"
-        app:layout_constraintStart_toEndOf="@+id/chipSelectAppleNews"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <com.google.android.material.chip.Chip
-        android:id="@+id/chipSelectAppleNews"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="Apple news"
+        android:layout_marginBottom="@dimen/margin_very_small"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintBottom_toTopOf="@+id/recyclerNews"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:ignore="MissingConstraints">
 
-    <com.google.android.material.chip.Chip
-        android:id="@+id/chipSelectUsaNews"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="USA news"
-        app:layout_constraintStart_toEndOf="@+id/chipSelectTeslaNews"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipSelectAppleNews"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_very_small"
+            android:text="@string/apple_news" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipSelectTeslaNews"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_very_small"
+            android:text="@string/tesla_news" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipSelectUsaNews"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_very_small"
+            android:text="@string/usa_news" />
+
+    </com.google.android.material.chip.ChipGroup>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerNews"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chipSelectAppleNews"
+        app:layout_constraintTop_toBottomOf="@+id/chipGroup"
         tools:itemCount="5"
         tools:listitem="@layout/item_recycler_news">
 
     </androidx.recyclerview.widget.RecyclerView>
+
+    <com.example.news.ui.customView.CustomLoadingProgressbar
+        android:id="@+id/loadingProgressbar"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

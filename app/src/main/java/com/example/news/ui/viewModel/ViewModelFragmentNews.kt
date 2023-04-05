@@ -2,14 +2,12 @@ package com.example.news.ui.viewModel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.news.repository.*
 import com.example.news.repository.API_KEY
 import com.example.news.repository.NOT_FOUND
 import com.example.news.ui.viewModel.interfacesViewModel.InterfaceViewModelFragmentNews
+import com.example.news.utils.showToast
 import kotlinx.coroutines.*
-import retrofit2.Call
-import retrofit2.Response
 
 class ViewModelFragmentNews(private val retrofit: RetrofitImpl) : ViewModel() , InterfaceViewModelFragmentNews {
 
@@ -18,13 +16,22 @@ class ViewModelFragmentNews(private val retrofit: RetrofitImpl) : ViewModel() , 
 
     private val scope = CoroutineScope(Dispatchers.IO)
 
-    override fun getListNews(q : String) {
+    override fun getListNews(sendData : SendData) {
 
         val retrofit = retrofit.getRetrofit()
+        liveData.value = StateData.Loading(LOADING)
+
         scope.launch {
             runCatching {
 
-                val response = retrofit.getListNews(q, "2023-04-03", "2023-04-03", "popularity", API_KEY).execute()
+                val response = when(sendData) {
+                    is SendData.SendParameterNews -> {
+                        retrofit.getListNews(sendData.query, sendData.from, sendData.to, sendData.sortBy, API_KEY).execute()
+                    }
+                    is SendData.SendParameterCountryNews -> {
+                        retrofit.getListCountryNews(sendData.country, sendData.category, API_KEY).execute()
+                    }
+                }
 
                 response
             }.onSuccess { response ->

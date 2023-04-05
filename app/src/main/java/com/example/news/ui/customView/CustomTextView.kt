@@ -1,13 +1,13 @@
-package com.example.yourbank.ui.customView
+package com.example.news.ui.customView
 
 import android.content.Context
 import android.graphics.*
-import android.graphics.fonts.Font
 import android.util.AttributeSet
 import android.view.View
-import com.example.yourbank.ui.customView.interfacesCustomView.CustomTextViewInterface
+import com.example.news.ui.customView.interfacesCustomView.CustomTextViewInterface
 
-class CustomTextView @JvmOverloads constructor(context : Context, attrs : AttributeSet? = null, style: Int = 0) : View(context,attrs,style) , CustomTextViewInterface {
+class CustomTextView @JvmOverloads constructor(context : Context, attrs : AttributeSet? = null, style: Int = 0) : View(context,attrs,style) ,
+    CustomTextViewInterface {
 
     private val paintText = Paint().apply { color = Color.argb(255,120, 120,120)
         isAntiAlias = true
@@ -27,7 +27,7 @@ class CustomTextView @JvmOverloads constructor(context : Context, attrs : Attrib
     }
 
     private val animText = ValueAnimatorX.ofValue(0f, string.length.toFloat()).apply {
-        vectorFunction { 17f }
+        vectorFunction { 10f }
         render { value -> drawText(value) }
     }
 
@@ -35,8 +35,9 @@ class CustomTextView @JvmOverloads constructor(context : Context, attrs : Attrib
         val bounds = Rect()
         paintText.getTextBounds(string, 0, string.length, bounds)
         val heightText: Int = bounds.height()
+        val widthText: Int = bounds.width()
 
-        canvas.drawText(string,0,value.toInt(),0f,height/2f + heightText/2f,paintText)
+        canvas.drawText(string,0,value.toInt(),width/2f - widthText/2f,height/2f + heightText/2f,paintText)
 
         invalidate()
     }
@@ -50,7 +51,6 @@ class CustomTextView @JvmOverloads constructor(context : Context, attrs : Attrib
             paintText.typeface = Typeface.createFromAsset(context.assets, font)
         }
         paintText.textSize = sizeText
-
         isStart = true
     }
 }

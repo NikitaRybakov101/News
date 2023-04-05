@@ -16,4 +16,12 @@ interface RetrofitInterfaceNews {
         @Query("apiKey") apiKey : String,
 
     ): Call<ResponseDataNews>
+
+    @GET("top-headlines")
+    fun getListCountryNews(
+        @Query("country") country : String,
+        @Query("category") category : String,
+        @Query("apiKey") apiKey : String,
+
+        ): Call<ResponseDataNews>
 }

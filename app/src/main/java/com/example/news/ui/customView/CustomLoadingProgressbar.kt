@@ -1,22 +1,30 @@
 package com.example.news.ui.customView
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
-import com.example.yourbank.ui.customView.ValueAnimatorX
-import com.example.yourbank.ui.customView.interfacesCustomView.InterfaceAnimationLoadingCard
+import com.example.news.ui.customView.interfacesCustomView.InterfaceLoadingProgressbar
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
 
-class AnimationLoadingCard @JvmOverloads constructor(context : Context, attrs : AttributeSet? = null, style: Int = 0) : View(context,attrs,style) , InterfaceAnimationLoadingCard {
+class CustomLoadingProgressbar @JvmOverloads constructor(context : Context, attrs : AttributeSet? = null, style: Int = 0) : View(context,attrs,style) ,
+    InterfaceLoadingProgressbar {
 
-    private val widthProgressBar = 10
-    private val radiusProgressBar = 40
+    private val widthProgressBarDP = 10
+    private var radiusProgressBarPix = 0
 
     private var canvas = Canvas()
     private var isStart = false
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        val width = MeasureSpec.getSize(widthMeasureSpec)
+
+        radiusProgressBarPix = width/2
+        setMeasuredDimension(width, width)
+    }
 
     private val animProgressBar = ValueAnimatorX.ofValue(0f, (2 * PI).toFloat()).apply {
         vectorFunction {
@@ -39,28 +47,29 @@ class AnimationLoadingCard @JvmOverloads constructor(context : Context, attrs : 
 
     private fun drawLoadingProgressBar(canvas: Canvas, radian: Float) {
         var angle = radian
+        val density = 0.005f
         var alpha = 255f
-        val c = (angle - (radian - 2f))/0.01f
+
+        val c = (angle - (radian - 2f))/density
 
         while (angle > radian - 2f) {
-            angle -= 0.01f
+            angle -= density
             alpha -= 255f/c
-            paint.color = Color.argb(alpha.toInt(),0,255,250)
+            paint.color = Color.argb(alpha.toInt(),0,230,230)
 
-            val x = (convertDpToPixels(radiusProgressBar)) * cos(angle)
-            val y = (convertDpToPixels(radiusProgressBar)) * sin(angle)
+            val x = (radiusProgressBarPix) * cos(angle)
+            val y = (radiusProgressBarPix) * sin(angle)
 
-            val x1 = (convertDpToPixels(radiusProgressBar) - convertDpToPixels(widthProgressBar)) * cos(angle)
-            val y1 = (convertDpToPixels(radiusProgressBar) - convertDpToPixels(widthProgressBar)) * sin(angle)
+            val x1 = (radiusProgressBarPix - convertDpToPixels(widthProgressBarDP)) * cos(angle)
+            val y1 = (radiusProgressBarPix - convertDpToPixels(widthProgressBarDP)) * sin(angle)
 
             canvas.drawLine(width/2f + x1,height/2f - y1, (width/2f + x), (height/2f - y),paint)
 
-            paint.color = Color.argb(alpha.toInt(),255,0,250)
+            paint.color = Color.argb(alpha.toInt(),230,0,230)
 
             canvas.drawLine(width/2f - x1,height/2f + y1, (width/2f - x), (height/2f + y),paint)
-
-            invalidate()
         }
+        invalidate()
     }
 
     private fun convertDpToPixels(dp: Int) = (dp * context.resources.displayMetrics.density).toInt()

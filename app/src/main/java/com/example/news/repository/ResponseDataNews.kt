@@ -12,6 +12,7 @@ data class Articles (
     @field:SerializedName("description") val description: String?,
     @field:SerializedName("urlToImage") val urlToImage: String?,
     @field:SerializedName("publishedAt") val publishedAt: String?,
+    @field:SerializedName("url") val url: String?,
 )
 
 

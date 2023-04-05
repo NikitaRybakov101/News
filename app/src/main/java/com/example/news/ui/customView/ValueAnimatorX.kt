@@ -1,4 +1,4 @@
-package com.example.yourbank.ui.customView
+package com.example.news.ui.customView
 
 class ValueAnimatorX(var x1: Float, var x2: Float) {
 

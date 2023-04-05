@@ -2,15 +2,15 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardItemsNews"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="12dp"
-        android:layout_marginHorizontal="16dp"
-        android:backgroundTint="#E6EFFF"
+        android:layout_marginVertical="@dimen/margin_small"
+        android:layout_marginHorizontal="@dimen/margin_default"
         app:cardCornerRadius="26dp" >
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,55 +21,67 @@
                 android:id="@+id/imageNews"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
+                android:padding="@dimen/padding_content"
                 android:scaleType="centerCrop"
-                android:padding="4dp"
-                app:shapeAppearanceOverlay="@style/RoundedSquare"
+                android:src="@drawable/placeholder"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/RoundedSquare" />
 
             <TextView
                 android:id="@+id/headerNews"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="end"
                 android:layout_marginHorizontal="8dp"
-                android:padding="4dp"
-                android:text="The Apple Watch SE drops back to $219"
-                android:textColor="#FFFFFF"
-                android:textSize="26sp"
+                android:gravity="end"
+                android:padding="@dimen/padding_content"
                 android:shadowColor="#595959"
                 android:shadowDx="1"
                 android:shadowDy="1"
                 android:shadowRadius="8"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="The Apple Watch SE drops back to $219" />
 
             <TextView
                 android:id="@+id/headerAuthor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="@dimen/margin_very_small"
+                android:layout_marginTop="@dimen/margin_very_small"
                 android:textColor="#373737"
-                android:text="Author: Jeff Dunn  |  publishedAt: 2023-04-03T14:40:32Z"
                 android:textSize="10sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageNews" />
+                app:layout_constraintTop_toBottomOf="@+id/imageNews"
+                tools:ignore="SmallSp"
+                tools:text="Author: Jeff Dunn  |  publishedAt: 2023-04-03T14:40:32Z" />
 
             <TextView
                 android:id="@+id/descriptionNews"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="The Apple Watch SE is back on sale for $219 at Amazon and Best Buy, bringing what was already one of the better values on the wearable market within $10 of the lowest price we've tracked. Though we've seen this deal a few times since the SE launched last Sept…"
+                android:layout_marginHorizontal="@dimen/margin_very_small"
+                android:layout_marginTop="@dimen/margin_default"
                 android:textSize="13sp"
-                android:layout_marginHorizontal="8dp"
-                android:layout_marginVertical="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/chipReadMore"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/headerAuthor" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/headerAuthor"
+                tools:text="The Apple Watch SE is back on sale for $219 at Amazon and Best Buy, bringing what was already one of the better values on the wearable market within $10 of the lowest price we've tracked. Though we've seen this deal a few times since the SE launched last Sept…" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipReadMore"
+                android:layout_width="wrap_content"
+                android:layout_height="44dp"
+                android:layout_marginEnd="@dimen/margin_default"
+                android:backgroundTint="#E1E1E1"
+                android:text="@string/read_more"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

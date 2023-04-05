@@ -4,9 +4,9 @@ buildscript {
         koin_version = '3.3.2'
         retrofit_version = "2.9.0"
         coroutines_version = "1.6.4"
-        room_version = "2.5.0-alpha02"
         navigation_version = '2.5.0'
         glide_version = '4.15.1'
+        lottieVersion = "3.4.0"
     }
 }
 

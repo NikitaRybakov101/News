@@ -2,6 +2,7 @@ package com.example.news.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.navigation.fragment.NavHostFragment
 import com.example.news.R
 import com.example.news.ui.fragments.NewsFragment
 
@@ -10,9 +11,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.mainContainer, NewsFragment.newInstance())
-            .commit()
+        initNavigation()
+    }
+    private fun initNavigation() {
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.mainContainer) as NavHostFragment
+        val navController = navHostFragment.navController
     }
 }
