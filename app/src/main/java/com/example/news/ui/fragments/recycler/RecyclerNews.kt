@@ -15,7 +15,7 @@ import com.example.news.repository.Articles
 import com.example.news.ui.fragments.NewsFragment
 import java.util.*
 
-class RecyclerNews(private val listNews: ArrayList<Articles>, private val fragmentNews: NewsFragment) : RecyclerView.Adapter<RecyclerNews.ViewHolderItemsNews>() , InterfaceRecycler {
+class RecyclerNews(private var listNews: ArrayList<Articles>, private val fragmentNews: NewsFragment) : RecyclerView.Adapter<RecyclerNews.ViewHolderItemsNews>() , InterfaceRecycler {
 
     companion object {
         private const val CARD_ELEVATION = 0f
@@ -69,6 +69,12 @@ class RecyclerNews(private val listNews: ArrayList<Articles>, private val fragme
     @SuppressLint("NotifyDataSetChanged")
     override fun clearListNews() {
         listNews.clear()
+        notifyDataSetChanged()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    override fun updateList(listNews: ArrayList<Articles>) {
+        this.listNews = listNews
         notifyDataSetChanged()
     }
 

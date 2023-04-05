@@ -25,11 +25,9 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import org.koin.core.qualifier.named
-import java.util.ArrayList
-
 class NewsFragment : BaseViewBindingFragment<NewsFragmentBinding>(NewsFragmentBinding::inflate) , CallbackRecycler{
 
-    private var recyclerView = RecyclerNews(ArrayList<Articles>(), this)
+    private var recyclerView = RecyclerNews(ArrayList(), this)
     private val sendDataFirs = RequestParameters.sendParameterNewsApple
 
     private val retrofit : RetrofitImpl by inject(named(RETROFIT_IMPL))
@@ -41,6 +39,7 @@ class NewsFragment : BaseViewBindingFragment<NewsFragmentBinding>(NewsFragmentBi
 
         initViewModel()
         listenerButtonChip()
+        initListNews()
 
         viewModel.getListNews(sendDataFirs)
     }
@@ -57,7 +56,7 @@ class NewsFragment : BaseViewBindingFragment<NewsFragmentBinding>(NewsFragmentBi
             is StateData.Success -> {
                 binding.loadingProgressbar.stop()
                 stateData.listNews.listArticles?.let { listNews ->
-                    initListNews(listNews)
+                    setListNews(listNews)
                 }
             }
             is StateData.Error -> {
@@ -67,11 +66,15 @@ class NewsFragment : BaseViewBindingFragment<NewsFragmentBinding>(NewsFragmentBi
         }
     }
 
-    private fun initListNews(listNews : List<Articles>) = with(binding) {
-        recyclerView = RecyclerNews(listNews as ArrayList<Articles>, this@NewsFragment)
+    private fun initListNews() = with(binding) {
         recyclerNews.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL,false)
         recyclerNews.adapter = recyclerView
     }
+
+    private fun setListNews(listNews : List<Articles>) {
+        recyclerView.updateList(listNews as ArrayList<Articles>)
+    }
+
     private fun setEmptyRecycler() {
         recyclerView.clearListNews()
     }
